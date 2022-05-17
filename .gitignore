@@ -1,0 +1,7 @@
+assimp/
+Release/
+Debug/
+Modern-OpenGL-Tutorials-master/
+*.zip
+.vs/
+.git/

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\glad">
+      <UniqueIdentifier>{f9b62a87-a083-4107-be56-7003955ff2f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MYCLASS">
+      <UniqueIdentifier>{f93cce7e-9adb-4bac-b3c7-a3cb29d3814e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MYCLASS">
+      <UniqueIdentifier>{0e18ecf6-ea3a-4fdc-b4dd-5642b8a8313b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\stb">
+      <UniqueIdentifier>{5b6c0ce1-d2c1-497f-815c-c148410be194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MYCLASS\obj">
+      <UniqueIdentifier>{a079eff9-245a-41d0-b280-4b47d17e1b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MYCLASS\obj">
+      <UniqueIdentifier>{f4ba2f83-6104-445a-af94-8fba894ad5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{74ec99f5-95ca-4475-ac56-fc5a5c8418cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\textures">
+      <UniqueIdentifier>{c7cd109a-2a0a-4cf8-80bf-6f43623009d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\models">
+      <UniqueIdentifier>{bf55efcd-f210-4659-87f9-61281a278250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{d7ce0872-d567-43f8-8917-2e2dc973f547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hw3">
+      <UniqueIdentifier>{9d52ada6-e873-4af6-ace4-d72bbcc4218c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hw3">
+      <UniqueIdentifier>{66b86201-9a8a-4c3e-b79e-dbdfcac51569}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>Source Files\MYCLASS</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Source Files\MYCLASS</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files\stb</Filter>
+    </ClCompile>
+    <ClCompile Include="glBuffer.hpp">
+      <Filter>Header Files\MYCLASS\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="glBuffer.cpp">
+      <Filter>Source Files\MYCLASS\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="glTexture.cpp">
+      <Filter>Source Files\MYCLASS\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="objLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tree_root.hpp">
+      <Filter>Header Files\hw3</Filter>
+    </ClCompile>
+    <ClCompile Include="tree_node.cpp">
+      <Filter>Source Files\hw3</Filter>
+    </ClCompile>
+    <ClCompile Include="tree_root.cpp">
+      <Filter>Source Files\hw3</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="comm.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.hpp">
+      <Filter>Header Files\MYCLASS</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.hpp">
+      <Filter>Header Files\MYCLASS</Filter>
+    </ClInclude>
+    <ClInclude Include="glObject.hpp">
+      <Filter>Header Files\MYCLASS\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="glTexture.hpp">
+      <Filter>Header Files\MYCLASS\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="objLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tree_node.hpp">
+      <Filter>Header Files\hw3</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicFragmentShader.glsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="BasicVertexShader.glsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="model.dae">
+      <Filter>Resource Files\assets\models</Filter>
+    </None>
+    <None Include="body.dae">
+      <Filter>Resource Files\assets\models</Filter>
+    </None>
+    <None Include="model_horse.dae">
+      <Filter>Resource Files\assets\models</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="uv.png">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="cube.obj">
+      <Filter>Resource Files\assets\models</Filter>
+    </Object>
+  </ItemGroup>
+</Project>
