@@ -1,9 +1,13 @@
 #include "comm.hpp"
 #include "VertexArray.hpp"
 
-VertexArray::VertexArray() {
+VertexArray::VertexArray(int _draw_count) {
+	draw_number = _draw_count;
 	glGenVertexArrays(1, &ID);
 	//glBindVertexArray(ID);
+}
+VertexArray::VertexArray()
+{
 }
 VertexArray &VertexArray::Attrib(GLuint layout, GLuint numComponents, GLenum dataType, GLsizeiptr stride,void* offset) {
 	glVertexAttribPointer(layout, numComponents, dataType, GL_FALSE, stride, offset);

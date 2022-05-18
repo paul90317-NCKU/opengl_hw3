@@ -22,9 +22,6 @@
     <Filter Include="Source Files\MYCLASS">
       <UniqueIdentifier>{0e18ecf6-ea3a-4fdc-b4dd-5642b8a8313b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\stb">
-      <UniqueIdentifier>{5b6c0ce1-d2c1-497f-815c-c148410be194}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\MYCLASS\obj">
       <UniqueIdentifier>{a079eff9-245a-41d0-b280-4b47d17e1b6a}</UniqueIdentifier>
     </Filter>
@@ -43,11 +40,11 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{d7ce0872-d567-43f8-8917-2e2dc973f547}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\hw3">
-      <UniqueIdentifier>{9d52ada6-e873-4af6-ace4-d72bbcc4218c}</UniqueIdentifier>
+    <Filter Include="Source Files\stb">
+      <UniqueIdentifier>{53e05cc0-d16e-45ed-bf98-bb49972be748}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\hw3">
-      <UniqueIdentifier>{66b86201-9a8a-4c3e-b79e-dbdfcac51569}</UniqueIdentifier>
+    <Filter Include="Header Files\MYCLASS\hw3">
+      <UniqueIdentifier>{9d52ada6-e873-4af6-ace4-d72bbcc4218c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +60,6 @@
     <ClCompile Include="VertexArray.cpp">
       <Filter>Source Files\MYCLASS</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image.cpp">
-      <Filter>Source Files\stb</Filter>
-    </ClCompile>
     <ClCompile Include="glBuffer.hpp">
       <Filter>Header Files\MYCLASS\obj</Filter>
     </ClCompile>
@@ -78,14 +72,8 @@
     <ClCompile Include="objLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tree_root.hpp">
-      <Filter>Header Files\hw3</Filter>
-    </ClCompile>
-    <ClCompile Include="tree_node.cpp">
-      <Filter>Source Files\hw3</Filter>
-    </ClCompile>
-    <ClCompile Include="tree_root.cpp">
-      <Filter>Source Files\hw3</Filter>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files\stb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,14 +89,14 @@
     <ClInclude Include="glObject.hpp">
       <Filter>Header Files\MYCLASS\obj</Filter>
     </ClInclude>
-    <ClInclude Include="glTexture.hpp">
-      <Filter>Header Files\MYCLASS\obj</Filter>
-    </ClInclude>
     <ClInclude Include="objLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tree_node.hpp">
-      <Filter>Header Files\hw3</Filter>
+      <Filter>Header Files\MYCLASS\hw3</Filter>
+    </ClInclude>
+    <ClInclude Include="glTexture.hpp">
+      <Filter>Header Files\MYCLASS\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -118,24 +106,30 @@
     <None Include="BasicVertexShader.glsl">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="model.dae">
-      <Filter>Resource Files\assets\models</Filter>
-    </None>
-    <None Include="body.dae">
-      <Filter>Resource Files\assets\models</Filter>
-    </None>
-    <None Include="model_horse.dae">
-      <Filter>Resource Files\assets\models</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="uv.png">
+    <Image Include="head.jpg">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
+    <Image Include="body.bmp">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
+    <Image Include="shorts.bmp">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
+    <Image Include="skin.bmp">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
+    <Image Include="sword.png">
       <Filter>Resource Files\assets\textures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="cube.obj">
+    <Resource Include="sword.obj">
       <Filter>Resource Files\assets\models</Filter>
-    </Object>
+    </Resource>
+    <Resource Include="cube.obj">
+      <Filter>Resource Files\assets\models</Filter>
+    </Resource>
   </ItemGroup>
 </Project>

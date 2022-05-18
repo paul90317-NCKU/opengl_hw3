@@ -6,32 +6,67 @@
 
 class tree_node {
 public:
-	glm::vec3 axi;
+	glm::vec3 axis;
 	glm::vec3 joint;
-	glm::mat4 base;
-	std::pair<float, float> range;
-	std::vector<tree_node> children;
-	tree_node(glm::vec3 _axi,glm::vec3 _joint,glm::mat4 _base,std::pair<float,float> _range) {
-		axi = _axi;
+	drange animation_drange;
+	drange limit_drange;
+	glm::mat4 translate;
+	glm::mat4 model;
+	VertexArray VAO;
+	std::vector<tree_node*> children;
+	glTexture* texture = NULL;
+	float deg_offset = 0.0f;
+	tree_node(VertexArray _VAO, glm::mat4 _model,glm::mat4 _translate, glm::vec3 _joint,glm::vec3 _axis,drange _animation_drange,drange _limit_drange) {
+		VAO = _VAO;
+		model = _model;
+		translate = _translate;
 		joint = _joint;
-		base = _base;
-		range = _range;
+		axis = _axis;
+		animation_drange = _animation_drange;
+		limit_drange = _limit_drange;
 	}
-	tree_node& add_child(tree_node tn) {
-		children.push_back(tn);
+	tree_node() {}
+	tree_node& add_child(tree_node& tn) {
+		children.push_back(&tn);
 		return *this;
 	}
-	void draw(ShaderProgram& sp,glm::mat4 parent,int n,float alpha) {
-		glm::mat4 rot = glm::rotate(glm::mat4(1.0f), glm::radians(range.first*alpha+(1-alpha)*range.second),axi);
-		glm::mat4 t = glm::translate(glm::mat4(1.0f), -joint);
-		glm::mat4 tback = glm::translate(glm::mat4(1.0f), joint);
-		parent = parent * tback * rot * t;
-		glm::mat4 trans = parent * base;
+	void draw(ShaderProgram& sp,glm::mat4 parent,float alpha) {
+		float deg = animation_drange.dmin * (1 - alpha) + animation_drange.dmax * alpha;
+		deg += deg_offset;
+		if (deg > limit_drange.get_max())deg = limit_drange.get_max();
+		if (deg < limit_drange.get_min())deg = limit_drange.get_min();
+		glm::mat4 rot = mymat::rotate(joint, axis, deg);
+		parent = parent * translate * rot;
+		glm::mat4 res = parent * model;
 		sp
-			.UniformMatrix4fv("trans", glm::value_ptr(trans));
-		glDrawArrays(GL_TRIANGLES, 0, n);
+			.UniformMatrix4fv("trans", glm::value_ptr(res));
+		VAO.Bind();
+		if (texture) {
+			texture->Bind();
+			glDrawArrays(GL_TRIANGLES, 0, VAO.draw_number);
+			texture->UnBind();
+		}
+		else {
+			glDrawArrays(GL_TRIANGLES, 0, VAO.draw_number);
+		}
+		
+		VAO.UnBind();
 		for (auto c : children) {
-			c.draw(sp, parent, n,alpha);
+			c->draw(sp, parent,alpha);
+		}
+	}
+	tree_node& BindTexture(glTexture* tex) {
+		texture = tex;
+		return *this;
+	}
+	void deg_inc(float deg,float alpha) {
+		if (deg_offset+ animation_drange.dmin * (1 - alpha) + animation_drange.dmax * alpha <= limit_drange.get_max()) {
+			deg_offset += deg;
+		}
+	}
+	void deg_dec(float deg,float alpha) {
+		if (deg_offset+ animation_drange.dmin * (1 - alpha) + animation_drange.dmax * alpha >= limit_drange.get_min()) {
+			deg_offset -= deg;
 		}
 	}
 };

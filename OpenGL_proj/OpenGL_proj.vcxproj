@@ -193,9 +193,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="tree_node.cpp" />
-    <ClCompile Include="tree_root.cpp" />
-    <ClCompile Include="tree_root.hpp" />
     <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -208,20 +205,27 @@
     <ClInclude Include="VertexArray.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="body.dae" />
-    <None Include="model.dae" />
     <None Include="BasicFragmentShader.glsl" />
     <None Include="BasicVertexShader.glsl" />
-    <None Include="model_horse.dae" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="uv.png" />
+    <Image Include="body.bmp" />
+    <Image Include="head.jpg" />
+    <Image Include="shorts.bmp" />
+    <Image Include="skin.bmp" />
+    <Image Include="sword.png" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="cube.obj">
+    <Resource Include="cube.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Object>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="sword.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Resource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

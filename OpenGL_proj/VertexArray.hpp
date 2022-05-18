@@ -13,6 +13,7 @@ private:
 	std::vector<glObject> bufs;
 public:
 	int draw_number;
+	VertexArray(int);
 	VertexArray();
 	VertexArray &Attrib(GLuint layout, GLuint numComponents, GLenum dataType, GLsizeiptr stride,void* offset=0);
 	VertexArray &Add(glObject buf);
