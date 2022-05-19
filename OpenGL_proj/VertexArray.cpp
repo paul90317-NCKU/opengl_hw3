@@ -33,7 +33,7 @@ void VertexArray::Delete() {
 		buf.Delete();
 	}
 }
-VertexArray &VertexArray::Add(glObject buf) {
+VertexArray &VertexArray::Add(myGL_Object buf) {
 	bufs.push_back(buf);
 	return *this;
 }

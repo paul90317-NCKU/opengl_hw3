@@ -1,8 +1,8 @@
-#ifndef __GL_OBJECT_H
-#define __GL_OBJECT_H
+#ifndef __MY_GL_OBJECT_H
+#define __MY_GL_OBJECT_H
 #include "comm.hpp"
 
-class glObject {
+class myGL_Object {
 public:
 	virtual void UnBind() {};
 	virtual void Delete() {};

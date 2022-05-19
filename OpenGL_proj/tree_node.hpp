@@ -3,6 +3,7 @@
 #include "comm.hpp"
 #include "ShaderProgram.hpp"
 #include "objLoader.hpp"
+#include "myGL_Texture.hpp"
 
 class tree_node {
 public:
@@ -17,7 +18,7 @@ public:
 	glm::mat4 model;
 	VertexArray VAO;
 	std::vector<tree_node*> children;
-	glTexture* texture = NULL;
+	myGL_Texture* texture = NULL;
 	float deg_offset = 0.0f;
 	tree_node(VertexArray _VAO, glm::mat4 _model,glm::mat4 _translate, glm::vec3 _joint,glm::vec3 _axis,drange _animation_drange,drange _limit_drange) {
 		VAO = _VAO;
@@ -72,7 +73,7 @@ public:
 			c->draw_hight_light(sp, parent, alpha);
 		}
 	}
-	tree_node& BindTexture(glTexture* tex) {
+	tree_node& BindTexture(myGL_Texture* tex) {
 		texture = tex;
 		return *this;
 	}

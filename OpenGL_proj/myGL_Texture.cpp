@@ -1,29 +1,29 @@
-#include "glTexture.hpp"
+#include "myGL_Texture.hpp"
 #include <stb/stb_image.hpp>
 
-glTexture::glTexture(GLenum bindTarget):
+myGL_Texture::myGL_Texture(GLenum bindTarget):
 	BIND_TARGET(bindTarget)
 {
 	glGenTextures(1, &ID);
 	glBindTexture(BIND_TARGET, ID);
 }
 
-void glTexture::UnBind()
+void myGL_Texture::UnBind()
 {
 	glBindTexture(BIND_TARGET, 0);
 }
 
-void glTexture::Delete()
+void myGL_Texture::Delete()
 {
 	glDeleteTextures(1, &ID);
 }
 
-void glTexture::Bind()
+void myGL_Texture::Bind()
 {
 	glBindTexture(BIND_TARGET, ID);
 }
 
-glTexture & glTexture::Generate(const char * filename)
+myGL_Texture & myGL_Texture::Generate(const char * filename)
 {
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char *bytes = stbi_load(filename, &widthImg, &heightImg, &numColCh, 0);
@@ -53,7 +53,7 @@ glTexture & glTexture::Generate(const char * filename)
 	return *this;
 }
 
-glTexture & glTexture::Parameteri(GLenum key, GLenum value)
+myGL_Texture & myGL_Texture::Parameteri(GLenum key, GLenum value)
 {
 	glTexParameteri(BIND_TARGET, key, value);
 	return *this;

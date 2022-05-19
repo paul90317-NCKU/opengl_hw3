@@ -1,7 +1,8 @@
 #include "comm.hpp"
 #include "VertexArray.hpp"
 #include "ShaderProgram.hpp"
-#include "glTexture.hpp"
+#include "myGL_Texture.hpp"
+#include "myGL_Buffer.hpp"
 #include "objLoader.hpp"
 #include "tree_node.hpp"
 
@@ -65,7 +66,7 @@ int main(int argc,char* argv[]) {
 		Cube = VertexArray(n);
 		Cube.Bind();
 		Cube
-			.Add(glBuffer(allf.data(), allf.size() * sizeof(GLfloat), GL_ARRAY_BUFFER, GL_STATIC_DRAW))
+			.Add(myGL_Buffer(allf.data(), allf.size() * sizeof(GLfloat), GL_ARRAY_BUFFER, GL_STATIC_DRAW))
 			.Attrib(0, 3, GL_FLOAT, 8 * sizeof(GLfloat))
 			.Attrib(1, 3, GL_FLOAT, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)))
 			.Attrib(2, 3, GL_FLOAT, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)))
@@ -82,7 +83,7 @@ int main(int argc,char* argv[]) {
 		Sword = VertexArray(n);
 		Sword.Bind();
 		Sword
-			.Add(glBuffer(allf.data(), allf.size() * sizeof(GLfloat), GL_ARRAY_BUFFER, GL_STATIC_DRAW))
+			.Add(myGL_Buffer(allf.data(), allf.size() * sizeof(GLfloat), GL_ARRAY_BUFFER, GL_STATIC_DRAW))
 			.Attrib(0, 3, GL_FLOAT, 8 * sizeof(GLfloat))
 			.Attrib(1, 3, GL_FLOAT, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)))
 			.Attrib(2, 3, GL_FLOAT, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)))
@@ -90,22 +91,22 @@ int main(int argc,char* argv[]) {
 	}
 
 	tree_node body, head, lefthand1, lefthand2, righthand1, righthand2, sword, leftleg1, leftleg2, rightleg1, rightleg2;
-	glTexture head_texture(GL_TEXTURE_2D);
+	myGL_Texture head_texture(GL_TEXTURE_2D);
 	head_texture.Generate("head.jpg").UnBind();
 
-	glTexture skin_texture(GL_TEXTURE_2D);
+	myGL_Texture skin_texture(GL_TEXTURE_2D);
 	skin_texture.Generate("skin.bmp").UnBind();
 
-	glTexture shorts_texture(GL_TEXTURE_2D);
+	myGL_Texture shorts_texture(GL_TEXTURE_2D);
 	shorts_texture.Generate("shorts.bmp").UnBind();
 
-	glTexture body_texture(GL_TEXTURE_2D);
+	myGL_Texture body_texture(GL_TEXTURE_2D);
 	body_texture.Generate("body.bmp").UnBind();
 
-	glTexture sword_texture(GL_TEXTURE_2D);
+	myGL_Texture sword_texture(GL_TEXTURE_2D);
 	sword_texture.Generate("sword.png").UnBind();
 
-	glTexture red_texture(GL_TEXTURE_2D);
+	myGL_Texture red_texture(GL_TEXTURE_2D);
 	red_texture.Generate("red.bmp").UnBind();
 
 	tree_node hight_light(
@@ -285,7 +286,7 @@ int main(int argc,char* argv[]) {
 				double xdiff, ydiff;
 				xdiff = xpos - lastXpos;
 				ydiff = ypos - lastYpos;
-				view = mymat::translate(xdiff/4, -ydiff/4, 0) * view;
+				view = mymat::translate(xdiff/12, -ydiff/12, 0) * view;
 				mvp = proj * view * model;
 				sp3d->UniformMatrix4fv("mvp", glm::value_ptr(mvp));
 			}

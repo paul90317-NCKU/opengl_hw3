@@ -178,14 +178,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="glBuffer.cpp" />
-    <ClCompile Include="glTexture.cpp">
+    <ClCompile Include="myGL_Buffer.cpp" />
+    <ClCompile Include="myGL_Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="objLoader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="glBuffer.hpp" />
+    <ClInclude Include="myGL_Buffer.hpp" />
     <ClCompile Include="Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -197,8 +197,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="comm.hpp" />
-    <ClInclude Include="glObject.hpp" />
-    <ClInclude Include="glTexture.hpp" />
+    <ClInclude Include="myGL_Object.hpp" />
+    <ClInclude Include="myGL_Texture.hpp" />
     <ClInclude Include="objLoader.hpp" />
     <ClInclude Include="ShaderProgram.hpp" />
     <ClInclude Include="tree_node.hpp" />
@@ -218,14 +218,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="cube.obj">
+      <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
     </Resource>
     <Resource Include="sword.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Resource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

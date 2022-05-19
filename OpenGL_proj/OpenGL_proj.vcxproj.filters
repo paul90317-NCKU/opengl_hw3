@@ -60,13 +60,10 @@
     <ClCompile Include="VertexArray.cpp">
       <Filter>Source Files\MYCLASS</Filter>
     </ClCompile>
-    <ClCompile Include="glBuffer.hpp">
-      <Filter>Header Files\MYCLASS\obj</Filter>
-    </ClCompile>
-    <ClCompile Include="glBuffer.cpp">
+    <ClCompile Include="myGL_Buffer.cpp">
       <Filter>Source Files\MYCLASS\obj</Filter>
     </ClCompile>
-    <ClCompile Include="glTexture.cpp">
+    <ClCompile Include="myGL_Texture.cpp">
       <Filter>Source Files\MYCLASS\obj</Filter>
     </ClCompile>
     <ClCompile Include="objLoader.cpp">
@@ -86,7 +83,7 @@
     <ClInclude Include="VertexArray.hpp">
       <Filter>Header Files\MYCLASS</Filter>
     </ClInclude>
-    <ClInclude Include="glObject.hpp">
+    <ClInclude Include="myGL_Object.hpp">
       <Filter>Header Files\MYCLASS\obj</Filter>
     </ClInclude>
     <ClInclude Include="objLoader.hpp">
@@ -95,7 +92,10 @@
     <ClInclude Include="tree_node.hpp">
       <Filter>Header Files\MYCLASS\hw3</Filter>
     </ClInclude>
-    <ClInclude Include="glTexture.hpp">
+    <ClInclude Include="myGL_Texture.hpp">
+      <Filter>Header Files\MYCLASS\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="myGL_Buffer.hpp">
       <Filter>Header Files\MYCLASS\obj</Filter>
     </ClInclude>
   </ItemGroup>
