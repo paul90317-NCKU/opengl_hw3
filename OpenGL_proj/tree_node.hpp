@@ -6,6 +6,9 @@
 
 class tree_node {
 public:
+	static tree_node* hight_light_point;
+	bool is_hight_light=false;
+
 	glm::vec3 axis;
 	glm::vec3 joint;
 	drange animation_drange;
@@ -41,6 +44,7 @@ public:
 		sp
 			.UniformMatrix4fv("trans", glm::value_ptr(res));
 		VAO.Bind();
+		
 		if (texture) {
 			texture->Bind();
 			glDrawArrays(GL_TRIANGLES, 0, VAO.draw_number);
@@ -53,6 +57,19 @@ public:
 		VAO.UnBind();
 		for (auto c : children) {
 			c->draw(sp, parent,alpha);
+		}
+	}
+	void draw_hight_light(ShaderProgram& sp, glm::mat4 parent, float alpha) {
+		float deg = animation_drange.dmin * (1 - alpha) + animation_drange.dmax * alpha;
+		deg += deg_offset;
+		if (deg > limit_drange.get_max())deg = limit_drange.get_max();
+		if (deg < limit_drange.get_min())deg = limit_drange.get_min();
+		glm::mat4 rot = mymat::rotate(joint, axis, deg);
+		parent = parent * translate * rot;
+		if (hight_light_point && is_hight_light)
+			hight_light_point->draw(sp, parent, alpha);
+		for (auto c : children) {
+			c->draw_hight_light(sp, parent, alpha);
 		}
 	}
 	tree_node& BindTexture(glTexture* tex) {

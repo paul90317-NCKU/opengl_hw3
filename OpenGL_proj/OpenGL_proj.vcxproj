@@ -211,6 +211,7 @@
   <ItemGroup>
     <Image Include="body.bmp" />
     <Image Include="head.jpg" />
+    <Image Include="red.bmp" />
     <Image Include="shorts.bmp" />
     <Image Include="skin.bmp" />
     <Image Include="sword.png" />

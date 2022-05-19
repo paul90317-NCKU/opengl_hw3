@@ -123,6 +123,9 @@
     <Image Include="sword.png">
       <Filter>Resource Files\assets\textures</Filter>
     </Image>
+    <Image Include="red.bmp">
+      <Filter>Resource Files\assets\textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="sword.obj">

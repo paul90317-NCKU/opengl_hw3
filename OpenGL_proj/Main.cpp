@@ -5,20 +5,24 @@
 #include "objLoader.hpp"
 #include "tree_node.hpp"
 
-struct part_node {
-	std::string name;
-	tree_node* part;
-	part_node(std::string _name, tree_node* _part) {
-		name = _name;
-		part = _part;
-	}
-};
+int width = 800;
+int height = 800;
+glm::mat4 proj, model, view, mvp;
+ShaderProgram* sp3d;
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	view=mymat::translate(0,0,yoffset*2)*view;
+	mvp = proj * view * model;
+	sp3d->UniformMatrix4fv("mvp", glm::value_ptr(mvp));
+}
+
+tree_node* tree_node::hight_light_point = NULL;
 
 int main(int argc,char* argv[]) {
 	std::string vertexShader = "BasicVertexShader.glsl";
 	std::string fragmentShader = "BasicFragmentShader.glsl";
-	int width = 800;
-	int height = 800;
+	
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
@@ -35,18 +39,17 @@ int main(int argc,char* argv[]) {
 	glfwMakeContextCurrent(window);
 	gladLoadGL();
 	glViewport(0, 0, width, height);
-	glm::mat4 proj = glm::perspective(70.0f, (float)(width / height), 0.1f, 200.0f);
-	glm::mat4 model =
+	proj = glm::perspective(70.0f, (float)(width / height), 0.1f, 200.0f);
+	model =
 		mymat::rotate(glm::vec3(1, 0, 0), 25)
 		* mymat::rotate(glm::vec3(0, 1, 0), -45)
 		* mymat::scale(0.8);
-	glm::mat4 view = mymat::translate(0, 0, -30);
-	glm::mat4 mvp = proj * view * model;
-		
-
-	ShaderProgram sp3d;
+	view = mymat::translate(0, 0, -30);
+	mvp = proj * view * model;
+	
+	sp3d = new ShaderProgram();
 	sp3d
-		.AttachShader(fragmentShader.c_str(), GL_FRAGMENT_SHADER)
+		->AttachShader(fragmentShader.c_str(), GL_FRAGMENT_SHADER)
 		.AttachShader(vertexShader.c_str(), GL_VERTEX_SHADER)
 		.Link().Use()
 		.Uniform1i("objectTexture", 0)
@@ -101,6 +104,16 @@ int main(int argc,char* argv[]) {
 
 	glTexture sword_texture(GL_TEXTURE_2D);
 	sword_texture.Generate("sword.png").UnBind();
+
+	glTexture red_texture(GL_TEXTURE_2D);
+	red_texture.Generate("red.bmp").UnBind();
+
+	tree_node hight_light(
+		Cube, mymat::scale(2,2,2), mymat::I(),
+		glm::vec3(0), glm::vec3(0, 1, 0), drange(), drange()
+	);
+	hight_light.BindTexture(&red_texture);
+	tree_node::hight_light_point = &hight_light;
 
 	body = tree_node(Cube, mymat::scale(10, 10, 5), mymat::I(),
 		glm::vec3(0), glm::vec3(0,1,0), drange(), drange())
@@ -177,19 +190,21 @@ int main(int argc,char* argv[]) {
 			head
 		);
 	
-	std::vector<part_node>  parts({
-		part_node("Head",&head),
-		part_node("Right Hand 1",&lefthand1),
-		part_node("Right Hand 2",&lefthand2),
-		part_node("Left Hand 1",&righthand1),
-		part_node("Left Hand 2",&righthand2),
-		part_node("Right Leg 1",&leftleg1),
-		part_node("Right Leg 2",&leftleg2),
-		part_node("Left Leg 1",&rightleg1),
-		part_node("Left Leg 2",&rightleg2),
-		part_node("Sword",&sword)
-		});
+	std::vector<tree_node*>  parts({
+		&head,
+		&lefthand1,
+		&lefthand2,
+		&righthand1,
+		&righthand2,
+		&leftleg1,
+		&leftleg2,
+		&rightleg1,
+		&rightleg2,
+		&sword});
 	int part_choosen_i = 0;
+	parts[part_choosen_i]->is_hight_light = true;
+
+
 	double lastframTime = glfwGetTime();
 	bool q_press = false;
 	bool w_press = false;
@@ -197,10 +212,10 @@ int main(int argc,char* argv[]) {
 	float alpha = 0.0f;
 	bool back = false;
 	bool stop = true;
+	double lastXpos=0, lastYpos=0;
 
-	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-	//glfwSetMouseButtonCallback(window, mymouse::callback);
+	glfwSetScrollCallback(window, scroll_callback);
 	while (!glfwWindowShouldClose(window)) {
 		double crntTime = glfwGetTime();
 		
@@ -226,17 +241,19 @@ int main(int argc,char* argv[]) {
 			else q_press = false;
 			if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 				if (w_press == false) {
+					parts[part_choosen_i]->is_hight_light = false;
 					part_choosen_i--;
 					if (part_choosen_i < 0)part_choosen_i = parts.size() - 1;
-					std::cout << parts[part_choosen_i].name << "\n";
+					parts[part_choosen_i]->is_hight_light = true;
 					w_press = true;
 				}
 			}
 			else w_press = false;
 			if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 				if (s_press == false) {
+					parts[part_choosen_i]->is_hight_light = false;
 					part_choosen_i = (part_choosen_i + 1) % parts.size();
-					std::cout << parts[part_choosen_i].name << "\n";
+					parts[part_choosen_i]->is_hight_light = true;
 					s_press = true;
 				}
 			}
@@ -244,33 +261,43 @@ int main(int argc,char* argv[]) {
 
 			//key press
 			if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-				parts[part_choosen_i].part->deg_dec(1,alpha);
+				parts[part_choosen_i]->deg_dec(1,alpha);
 			}
 			if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-				parts[part_choosen_i].part->deg_inc(1, alpha);
+				parts[part_choosen_i]->deg_inc(1, alpha);
 			}
 
 			//mouse press
+			double xpos, ypos;
+			glfwGetCursorPos(window, &xpos, &ypos);
 			if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-				double xpos, ypos;
-				glfwGetCursorPos(window, &xpos, &ypos);
-				xpos = (xpos - width / 2) / width;
-				ypos = (ypos - height / 2) / height;
-				float deg = sqrtf(xpos * xpos + ypos * ypos);
-				view = view*mymat::rotate(glm::vec3(ypos, xpos, 0), -deg);
-				mvp = proj * view * model;
-				sp3d.UniformMatrix4fv("mvp", glm::value_ptr(mvp));
+				double xdiff, ydiff;
+				xdiff = xpos - lastXpos ;
+				ydiff = ypos - lastYpos ;
+				float deg = sqrtf(xdiff * xdiff + ydiff * ydiff);
+				if (deg > 2) {
+					model = mymat::rotate(glm::vec3(ydiff, xdiff, 0), deg / 4) * model;
+					mvp = proj * view * model;
+					sp3d->UniformMatrix4fv("mvp", glm::value_ptr(mvp));
+				}
 			}
 			if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
-				double xpos, ypos;
-				glfwGetCursorPos(window, &xpos, &ypos);
-				xpos = (xpos - width / 2) / width;
-				ypos = (ypos - height / 2) / height;
-				view = mymat::translate(xpos, -ypos, 0) * view;
+				double xdiff, ydiff;
+				xdiff = xpos - lastXpos;
+				ydiff = ypos - lastYpos;
+				view = mymat::translate(xdiff/4, -ydiff/4, 0) * view;
 				mvp = proj * view * model;
-				sp3d.UniformMatrix4fv("mvp", glm::value_ptr(mvp));
+				sp3d->UniformMatrix4fv("mvp", glm::value_ptr(mvp));
 			}
-			body.draw(sp3d, mymat::I() ,alpha);
+			lastXpos = xpos;
+			lastYpos = ypos;
+
+			//draw
+			glEnable(GL_DEPTH_TEST);
+			body.draw(*sp3d, mymat::I(), alpha);
+			glDisable(GL_DEPTH_TEST);
+			body.draw_hight_light(*sp3d, mymat::I() ,alpha);
+
 			glfwSwapBuffers(window);
 			lastframTime = crntTime;
 		}
@@ -278,7 +305,7 @@ int main(int argc,char* argv[]) {
 	}
 
 
-	sp3d.Delete();
+	sp3d->Delete();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
